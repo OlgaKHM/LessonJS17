@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@800&family=Montserrat:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <title>Задача 5</title>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <h2>Задача 5.</h2>
+      <p>
+        Особиста бібліотека. Картотека домашньої бібліотеки: дані книги (автори
+        (піб, рік народження, короткий опис), назва книги, жанр, видавництво
+        (назва, реєстраційний номер, рік засування)). Реалізувати розділи
+        бібліотеки (спеціальна література, хобі, домашнє господарство і т.д.),
+        походження книги і наявність на даний час. Організувати
+        додавання/вилучення книг та вибір книг за назвою, за ПІБ автора, за
+        видавництвом.
+      </p>
+      <script>
+        class Author {
+          constructor({ name, surname, yearOfBirth, shortDescription }) {
+            this.name = name
+            this.surname = surname
+            this.yearOfBirth = yearOfBirth
+            this.shortDescription = shortDescription
+          }
+          get fullname() {
+            return this.name + " " + this.surname
+          }
+          toString() {
+            return `автор: ${this.fullname}, рік народження: ${this.yearOfBirth}, короткий опис: ${this.shortDescription}`
+          }
+        }
+        class Publishing {
+          constructor({
+            publishingTitle,
+            registrationNumber,
+            yearOfFoundation,
+          }) {
+            this.publishingTitle = publishingTitle
+            this.registrationNumber = registrationNumber
+            this.yearOfFoundation = yearOfFoundation
+          }
+          toString() {
+            return `назва видавництва: ${this.publishingTitle}, реєстраційний номер: ${this.registrationNumber}, рік засування: ${this.yearOfFoundation}`
+          }
+        }
+        class Book {
+          constructor(initBook) {
+            this.bookTitle = initBook.bookTitle
+            this.genre = initBook.genre
+            this.publishing = new Publishing(initBook)
+            this.author = new Author(initBook)
+          }
+          toString() {
+            return `назва книги: ${this.bookTitle}, жанр: ${this.genre}, видавництво: ${this.publishing},<br> ${this.author}`
+          }
+        }
+        const booksList = [
+          new Book({
+            bookTitle: "bookTitle1",
+            genre: "genre1",
+            publishingTitle: "publishingTitle1",
+            registrationNumber: "123456",
+            yearOfFoundation: "2000",
+            name: "name1",
+            surname: "surname1",
+            yearOfBirth: "1946",
+            shortDescription: "shortDescription1",
+          }),
+          new Book({
+            bookTitle: "bookTitle2",
+            genre: "genre1",
+            publishingTitle: "publishingTitle2",
+            registrationNumber: "234567",
+            yearOfFoundation: "2005",
+            name: "name1",
+            surname: "surname1",
+            yearOfBirth: "1946",
+            shortDescription: "shortDescription2",
+          }),
+          new Book({
+            bookTitle: "bookTitle3",
+            genre: "genre1",
+            publishingTitle: "publishingTitle3",
+            registrationNumber: "345678",
+            yearOfFoundation: "1987",
+            name: "name2",
+            surname: "surname2",
+            yearOfBirth: "1973",
+            shortDescription: "shortDescription3",
+          }),
+          new Book({
+            bookTitle: "bookTitle4",
+            genre: "genre2",
+            publishingTitle: "publishingTitle2",
+            registrationNumber: "234567",
+            yearOfFoundation: "2005",
+            name: "name3",
+            surname: "surname3",
+            yearOfBirth: "1928",
+            shortDescription: "shortDescription4",
+          }),
+          new Book({
+            bookTitle: "bookTitle5",
+            genre: "genre1",
+            publishingTitle: "publishingTitle1",
+            registrationNumber: "123456",
+            yearOfFoundation: "2000",
+            name: "name1",
+            surname: "surname1",
+            yearOfBirth: "1946",
+            shortDescription: "shortDescription5",
+          }),
+          new Book({
+            bookTitle: "bookTitle6",
+            genre: "genre2",
+            publishingTitle: "publishingTitle4",
+            registrationNumber: "456789",
+            yearOfFoundation: "2020",
+            name: "name4",
+            surname: "surname4",
+            yearOfBirth: "1956",
+            shortDescription: "shortDescription6",
+          }),
+        ]
+        class Library {
+          constructor(bookList) {
+            this.bookList = bookList
+          }
+          // додавання книг
+          addBook(initBooks) {
+            this.bookList.push(initBooks)
+          }
+          //вилучення книг
+          removeBook(bookTitle) {
+            this.bookList = this.bookList.filter(
+              (book) => book.bookTitle !== bookTitle
+            )
+          }
+          //розділи бібліотеки
+          getBooksBySectionOfLibrary(genre) {
+            return this.bookList.filter((book) => book.genre === genre)
+          }
+          //наявність на даний час
+          getBookAvailabilityATtheMoment(bookTitle) {
+            return this.bookList.some((book) => book.bookTitle === bookTitle)
+          }
+          //вибір книг за назвою
+          getBookSelectionByTitle(bookTitle) {
+            return this.bookList.filter((book) => book.bookTitle === bookTitle)
+          }
+          //вибір книг за ПІБ автора
+          getBookSelectionByAuthor(fullname) {
+            return this.bookList.filter(
+              (book) => book.author.fullname === fullname
+            )
+          }
+          //вибір книг за видавництвом
+          getBookSelectionByPublishing(publishingTitle) {
+            return this.bookList.filter(
+              (book) => book.publishing.publishingTitle === publishingTitle
+            )
+          }
+          toString() {
+            return `Особиста бібліотека:<br>${this.bookList}`
+          }
+        }
+        myBooks = new Library(booksList)
+        document.write(`${myBooks}`)
+      </script>
+    </div>
+  </body>
+</html>

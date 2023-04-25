@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@800&family=Montserrat:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <title>Задача 4</title>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <h2>Задача 4.</h2>
+      <p>
+        Склад. База товарів, які зберігаються на складі: назва товару, одиниця
+        виміру, кількість, фірма виробник (назва, реєстраційний номер).
+        Організувати реєстрацію/відвантаження товарів, фільтрація за назвою
+        товару, фільтрація за назвою фірми .
+      </p>
+      <script>
+        class Product {
+          constructor(initProduct) {
+            this.productName = initProduct.productName
+            this.unit = initProduct.unit
+            this.quantity = initProduct.quantity
+            this.company = new Company(initProduct)
+          }
+          toString() {
+            return `<span><br>назва товару : ${this.productName}<br>одиниця виміру : ${this.unit}; кількість : ${this.quantity}<br>фірма виробник : ${this.company}</span>`
+          }
+        }
+        class Company {
+          constructor({ companyTitle, companyId }) {
+            this.companyTitle = companyTitle
+            this.companyId = companyId
+          }
+          toString() {
+            return `<span>назва : ${this.companyTitle}; реєстраційний номер : ${this.companyId}</span>`
+          }
+        }
+        class Stock {
+          constructor(productList) {
+            this.products = [...productList]
+          }
+          //реєстрація товарів
+          registrstionProduct(newProduct) {
+            this.products.push(newProduct)
+          }
+          //відвантаження товарів
+          shipmentProduct(productName, quantity, companyTitle) {
+            for (const product of this.products) {
+              if (
+                product.productName === productName &&
+                product.quantity >= quantity &&
+                product.company.companyTitle === companyTitle
+              )
+                product.quantity -= quantity
+            }
+          }
+          // фільтрація за назвою товару
+          filterForProductName(productName) {
+            return this.products.filter(
+              (item) => item.productName === productName
+            )
+          }
+          // фільтрація за назвою фірми
+          filterForCompanyTitle(companyTitle) {
+            return this.products.filter(
+              (item) => item.company.companyTitle === companyTitle
+            )
+          }
+          toString() {
+            return `${this.products}`
+          }
+        }
+        const productList = [
+          new Product({
+            productName: "product1",
+            unit: "pieces",
+            quantity: "10",
+            companyTitle: "Title1",
+            companyId: 123456,
+          }),
+          new Product({
+            productName: "product1",
+            unit: "pieces",
+            quantity: "15",
+            companyTitle: "Title2",
+            companyId: 456789,
+          }),
+          new Product({
+            productName: "product1",
+            unit: "pieces",
+            quantity: "20",
+            companyTitle: "Title3",
+            companyId: 987654,
+          }),
+          new Product({
+            productName: "product2",
+            unit: "pieces",
+            quantity: "20",
+            companyTitle: "Title1",
+            companyId: 123456,
+          }),
+          new Product({
+            productName: "product2",
+            unit: "pieces",
+            quantity: "15",
+            companyTitle: "Title2",
+            companyId: 456789,
+          }),
+          new Product({
+            productName: "product2",
+            unit: "pieces",
+            quantity: "10",
+            companyTitle: "Title3",
+            companyId: 987654,
+          }),
+          new Product({
+            productName: "product3",
+            unit: "pieces",
+            quantity: "25",
+            companyTitle: "Title1",
+            companyId: 123456,
+          }),
+          new Product({
+            productName: "product3",
+            unit: "pieces",
+            quantity: "30",
+            companyTitle: "Title2",
+            companyId: 456789,
+          }),
+          new Product({
+            productName: "product3",
+            unit: "pieces",
+            quantity: "10",
+            companyTitle: "Title3",
+            companyId: 987654,
+          }),
+        ]
+        stock = new Stock(productList)
+        stock.shipmentProduct("product2", 5, "Title2")
+        stock.filterForProductName("product2")
+        stock.filterForCompanyTitle("Title2")
+      </script>
+    </div>
+  </body>
+</html>

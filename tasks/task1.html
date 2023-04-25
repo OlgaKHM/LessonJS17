@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@800&family=Montserrat:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <title>Задача 1</title>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <h2>Задача 1.</h2>
+      <p>
+        Створити клас, що дозволяє виконувати такі операції над масивами:
+        знаходження кількості додатних, кількості від’ємних, кількість входжень
+        деякого числа (статичні методи).
+      </p>
+      <script>
+        class ExecutionOfOperations {
+          static NumPositiveNumbers(numArr) {
+            let PositiveCounter = 0
+            for (let num of numArr) {
+              if (num > 0) PositiveCounter++
+            }
+            return PositiveCounter
+          }
+          static NumNegativeNumbers(numArr) {
+            let NegativeCounter = 0
+            for (let num of numArr) {
+              if (num < 0) NegativeCounter++
+            }
+            return NegativeCounter
+          }
+          static NumCertainNumbers(numArr, number) {
+            let CertainCounter = 0
+            for (let num of numArr) {
+              if (num === number) CertainCounter++
+            }
+            return CertainCounter
+          }
+        }
+        let numArr = [5, 10 - 7, 7, 3, -5, 8, 7, -2, -9, 4, -6]
+        document.write(
+          `<h3>кількості додатних : ${ExecutionOfOperations.NumPositiveNumbers(
+            numArr
+          )}</h3>`
+        )
+        document.write(
+          `<h3>кількості від’ємних : ${ExecutionOfOperations.NumNegativeNumbers(
+            numArr
+          )}</h3>`
+        )
+        document.write(
+          `<h3>кількість входжень
+        деякого числа : ${ExecutionOfOperations.NumCertainNumbers(
+          numArr,
+          7
+        )}</h3>`
+        )
+      </script>
+    </div>
+  </body>
+</html>

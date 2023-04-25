@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@800&family=Montserrat:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <title>Задача 3</title>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <h2>Задача 3.</h2>
+      <p>
+        Створити клас Нагадувач. Кожні вказані кількості секунд (використати
+        setInterval) програма нагадує про якусь подію (це просто текст) і також
+        виводиться порядковий номер скільки раз вже нагадування було. Зробити
+        так, щоб неможна було зробити одночасно декілька об’єктів-нагадувачів.
+        Методи зупинки таймера, метод зміни повідомлення без зупинки таймера.
+      </p>
+      <script>
+        class Reminder {
+          static reminderObj
+          constructor(message, time) {
+            if (Reminder.reminderObj) return Reminder.reminderObj
+            this.message = message
+            this.time = time
+            this.timer
+            this.counter = 1
+            Reminder.reminderObj = this
+          }
+          timer() {
+            this.timer = setInterval(() => {
+              document.write(`${this.message} ${this.counter}<br>`)
+              this.counter++
+            }, this.time * 1000)
+          }
+          stopTimer(valueTime) {
+            setTimeout(() => {
+              clearInterval(this.timer)
+            }, valueTime * 1000)
+          }
+          newMessage(valueMessage, valueTime) {
+            setTimeout(() => {
+              this.message = valueMessage
+            }, valueTime * 1000)
+          }
+        }
+        let reminder = new Reminder("перше нагадування", 2)
+        reminder.timer()
+        reminder.stopTimer(12)
+        reminder.newMessage("друге нагадування", 6)
+      </script>
+    </div>
+  </body>
+</html>
